@@ -12,7 +12,7 @@ Proyecto final para la materia de **Programación Estructurada**. Este sistema p
 ## 🛠️ Tecnologías Utilizadas
 - **Lenguaje:** C (Estándar C11)
 - **Compilador:** GCC
-- **Entorno:** [Tu IDE, ej: Dev-C++, VS Code o Code::Blocks]
+- **Entorno:**  VS Code 
 
 ## 🚀 Instalación y Ejecución
 1. Clona el repositorio: `git clone https://docs.github.com/es/repositories/creating-and-managing-repositories/quickstart-for-repositories`
@@ -20,5 +20,5 @@ Proyecto final para la materia de **Programación Estructurada**. Este sistema p
 3. Ejecuta: `./sistema_ventas`
 
 ## 👤 Autores
-- **Héctor Leonardo Torres** - 
+- **Héctor Leonardo Torres** - https://github.com/hectortorres2193-code
 - **[Nombre de tu compañero]** - [Link a su perfil]
