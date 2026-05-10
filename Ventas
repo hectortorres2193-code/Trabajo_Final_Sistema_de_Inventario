@@ -1,0 +1,8 @@
+//aqui pondremos las liberias nesesarias
+#include <stdio.h>
+int main()
+{
+    printf("Registro de ventas");
+
+    return 0;
+}
