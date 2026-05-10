@@ -1,8 +1,16 @@
 //aqui pondremos las liberias nesesarias
 #include <stdio.h>
+void menu();//funcion 1
 int main()
 {
     printf("Registro de ventas");
 
     return 0;
+}
+void menu() {//funcion 1
+    printf("1.- Lista de clientes.\n"
+           "2.- Lista de productos.\n"
+           "3.- Precios.\n"
+           "4.- Ver Facturacion por fechas.\n"
+           "5.- Salir.\n");
 }
