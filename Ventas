@@ -4,12 +4,23 @@ void menu();//funcion 1
 void guardardatos();//funcion 2
 int main()
 {
-FILE *clientes;
-FILE *Productos;
-FILE *Fechas;
+printf("Registro de ventas\n");
+//poner todas las funciones aqui antes
+FILE *clientes= fopen("clientes.txt", "r");
+FILE *Productos= fopen("Productos.txt", "r");
+FILE *Fechas= fopen("Fechas.txt", "r");
 FILE *Facturacion;
-
-    printf("Registro de ventas\n");
+FILE *central   = fopen("central.txt", "w");
+fprintf(central, " ");
+copiarContenido(clientes, central);
+fprintf(central, " ");
+copiarContenido(Productos, central);
+fprintf(central, " ");
+copiarContenido(Fechas, central);
+    fclose(clientes);
+    fclose(Productos);
+    fclose(Fechas);
+    fclose(central);
 
     return 0;
 }
@@ -45,4 +56,10 @@ void guardardatos(){
      fclose(Fechas);
     
     
+}
+void copiarContenido(FILE *origen, FILE *destino) {
+    char linea[100];
+    while (fgets(linea, sizeof(linea), origen)) {
+        fprintf(destino, "%s", linea);
+    }
 }
