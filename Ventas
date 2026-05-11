@@ -3,6 +3,11 @@
 void menu();//funcion 1
 int main()
 {
+FILE *clientes;
+FILE *Productos;
+FILE *Fechas;
+FILE *Facturacion;
+
     printf("Registro de ventas");
 
     return 0;
