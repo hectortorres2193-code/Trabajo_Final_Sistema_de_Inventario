@@ -27,5 +27,22 @@ void guardardatos(){
     scanf("%s",&nombre);
      fprintf(clientes, "Nombre: %s\n", nombre);
      fclose(clientes);
+ /////////////////////////separador
+     
+         FILE *Productos = fopen("Productos.txt", "a");
+        printf("Producto: \n");
+        char Mercancia[50];
+    scanf("%s",&Mercancia);
+     fprintf(Productos, "Productos: %s\n", Mercancia);
+     fclose(Productos);
+    /////////////////////////separador
+     
+              FILE *Fechas = fopen("Fechas.txt", "a");
+        printf("Fecha: \n");
+        int Day;
+    scanf("%d",&Day);
+     fprintf(Fechas, "Fechas: %d\n", Day);
+     fclose(Fechas);
+    
     
 }
