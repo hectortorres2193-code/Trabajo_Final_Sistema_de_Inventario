@@ -1,168 +1,127 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h> 
 
-typedef struct {
-    int   id;
-    char  cliente[50];
-    char  producto[50];
-    int   dia;
-    float precio;
-    int   cantidad;
-    float total;
-} Venta;
-
-Venta baseDatos[100];
-int   totalRegistros = 0;
-
-/*  PROTOTIPOS */
-void menu();
-void guardarDatos(); 
-void copiarContenido(FILE *origen, FILE *destino);
-void limpiarBuffer();
-int soloLetras(const char *s);
-int diaOk(int d);
-void guardarArchivo(); 
-void limpiarPantalla();
-
-
+void menu();///primera funcion
+void guardardatos();//segunda funcion
+int generarID();///tercera funcion
 
 int main() {
-    printf("--- Registro de ventas ---\n");
-    
-    // Ejecutamos el registro
-    guardarDatos();
-    limpiarPantalla();
-
-    // Después de guardar, intentamos unir todo en el central.txt
-    FILE *clientes  = fopen("clientes.txt", "r");
-    FILE *productos = fopen("Productos.txt", "r");
-    FILE *fechas    = fopen("Fechas.txt", "r");
-    FILE *central   = fopen("central.txt", "w");
-
-    // Solo unimos si los archivos existen
-    if (clientes && productos && fechas && central) {
-        fprintf(central, "--- CLIENTES ---\n");
-        copiarContenido(clientes, central);
+    int op = 42;
+    FILE *central; 
+    char linea[200];
+    printf("=== Registro de Ventas ===\n");
+    while(op != 6){
+        menu();
+         
+    printf("Ingresa una opcion: ");
+    scanf("%d", &op);
+    switch(op){
+        case 1:
+        guardardatos();
+        break;
+        case 2:
         
-        fprintf(central, "\n--- PRODUCTOS ---\n");
-        copiarContenido(productos, central);
+        central = fopen("central.txt", "r");
         
-        fprintf(central, "\n--- FECHAS ---\n");
-        copiarContenido(fechas, central);
-
-        fclose(clientes);
-        fclose(productos);
-        fclose(fechas);
-        fclose(central);
-        printf("\n[Archivo central.txt actualizado]\n");
+         while (fgets(linea, sizeof(linea), central) != NULL) {
+                        printf("%s", linea); // Imprime en pantalla lo que leyó del archivo
+                    }
+                    fclose(central);
+        
+        
+        
+        break;
+        case 3:
+        
+        break;
+        case 4:
+        
+        break;
+        case 5:
+        
+        break;
+        case 6:
+        
+        printf("\n ---Saliendo--- \n");
+        
+        break;
+        
+        default:
+        printf("Opcion no valida.\n");
+        
     }
 
+    
+   
+    printf("central.txt creado.\n");
+    }  
     return 0;
 }
 
-/*  IMPLEMENTACIÓN DE FUNCIONES */
-
-void guardarDatos() {
-    if (totalRegistros >= 100) { 
-        printf("\n[!] Base de datos llena.\n"); 
-        return; 
-    }
-
-    Venta v;
-    v.id = totalRegistros ? baseDatos[totalRegistros - 1].id + 1 : 1;
-
-    printf("\n--- NUEVA VENTA ---\n");
-
-    printf("Nombre Cliente: ");
-    scanf(" %49[^\n]", v.cliente); limpiarBuffer();
-    if (!soloLetras(v.cliente)) {
-        printf("[Error] El nombre solo debe tener letras. Registro cancelado.\n");
-        return;
-    }
-
-    printf("Producto: ");
-    scanf(" %49[^\n]", v.producto); limpiarBuffer();
-    if (!soloLetras(v.producto)) {
-        printf("[Error] El producto solo debe tener letras. Registro cancelado.\n");
-        return; 
-    }
-
-    printf("Dia (1-31): ");
-    if (scanf("%d", &v.dia) != 1 || !diaOk(v.dia)) {
-        limpiarBuffer();
-        printf("[Error] Dia invalido. Registro cancelado.\n");
-        return; 
-    }
-    limpiarBuffer();
-
-    printf("Precio unitario: $");
-    if (scanf("%f", &v.precio) != 1 || v.precio <= 0) { 
-        limpiarBuffer(); printf("[Error] Precio invalido.\n"); return; 
-    }
-    limpiarBuffer();
-
-    printf("Cantidad: ");
-    if (scanf("%d", &v.cantidad) != 1 || v.cantidad <= 0) { 
-        limpiarBuffer(); printf("[Error] Cantidad invalida.\n"); return; 
-    }
-    limpiarBuffer();
-
-    // Si todo salió bien, ahora sí escribimos en los archivos
-    v.total = v.precio * v.cantidad;
-
-    FILE *fCli = fopen("clientes.txt", "a");
-    if(fCli) { fprintf(fCli, "%s\n", v.cliente); fclose(fCli); }
-
-    FILE *fPro = fopen("Productos.txt", "a");
-    if(fPro) { fprintf(fPro, "%s\n", v.producto); fclose(fPro); }
-
-    FILE *fFec = fopen("Fechas.txt", "a");
-    if(fFec) { fprintf(fFec, "%d\n", v.dia); fclose(fFec); }
-
-    baseDatos[totalRegistros++] = v;
-    guardarArchivo(); 
-
-    printf("\n[OK] Venta guardada correctamente | ID: %d | Total: $%.2f\n", v.id, v.total);
+void menu() {//funcion 1
+    printf("1.- Registro\n"
+           "2.- Leer registro \n"
+           "2.- Lista de clientes.\n"
+           "3.- Lista de productos.\n"
+           "4.- Precios.\n"
+           "5.- Ver Facturacion por fechas.\n"
+           "6.- Salir.\n");
 }
 
-// Revisa que el texto no tenga números
-int soloLetras(const char *s) {
-    if (!s[0]) return 0;
-    for (int i = 0; s[i]; i++)
-        if (!isalpha((unsigned char)s[i]) && s[i] != ' ') return 0;
-    return 1;
-}
+int generarID() {
+    FILE *clientes = fopen("clientes.txt", "r");
+    if (clientes == NULL) return 1;
 
-// Revisa que el día sea válido
-int diaOk(int d) { return d >= 1 && d <= 31; }
-
-// Guarda el respaldo general
-void guardarArchivo() {
-    FILE *f = fopen("ventas.txt", "a");
-    if (f) {
-        Venta v = baseDatos[totalRegistros - 1];
-        fprintf(f, "%d\t%s\t%s\t%d\t%.2f\n", v.id, v.cliente, v.producto, v.dia, v.total);
-        fclose(f);
-    }
-}
-
-void copiarContenido(FILE *origen, FILE *destino) {
+    int id = 0;
     char linea[100];
-    while (fgets(linea, sizeof(linea), origen)) {
-        fprintf(destino, "%s", linea);
+    while (fgets(linea, sizeof(linea), clientes)) {
+        id++;
     }
+
+    fclose(clientes);
+    return id + 1;
 }
 
-void limpiarBuffer() {
-    int c;
-    while ((c = getchar()) != '\n' && c != EOF);
-}
-void limpiarPantalla() {
-#ifdef _WIN32
-    system("cls");
-#else
-    system("clear");
-#endif
+void guardardatos() {
+    char nombre[50];
+    char Mercancia[50];///variables para crear los datos de archivos
+    float precio;
+    int Day, mes, year;
+
+    int id = generarID();
+
+    printf("\n--- Nuevo Registro (ID: %d) ---\n", id);
+
+    // Guardar cliente
+    FILE *clientes = fopen("clientes.txt", "a");
+    printf("Nombre del cliente: ");
+    scanf("%s", nombre);
+    fprintf(clientes, "ID: %d | Nombre: %s\n", id, nombre);
+    fclose(clientes);
+
+    // Guardar producto
+    FILE *productos = fopen("Productos.txt", "a");
+    printf("Producto: ");
+    scanf("%s", Mercancia);
+    printf("Precio: ");
+    scanf("%f", &precio);
+    fprintf(productos, "ID: %d | Producto: %s | Precio: %.2f\n", id, Mercancia, precio);
+    fclose(productos);
+
+    // Guardar fecha
+    FILE *fechas = fopen("Fechas.txt", "a");
+    printf("Dia: ");
+    scanf("%d", &Day);
+    printf("Mes: ");
+    scanf("%d", &mes);//guarda la feha por 3 partes
+    printf("Año: ");
+    scanf("%d", &year);
+    fprintf(fechas, "ID: %d | Fecha: %02d/%02d/%d\n", id, Day, mes, year);
+    fclose(fechas);
+
+    // crea la linea central
+    FILE *central = fopen("central.txt", "a");
+    fprintf(central, "ID: %d | Nombre: %s | Producto: %s | Precio: %.2f | Fecha: %02d/%02d/%d\n",id, nombre, Mercancia, precio, Day, mes, year);
+    fclose(central);
+
+    printf("Registro #%d guardado correctamente.\n", id);
 }
