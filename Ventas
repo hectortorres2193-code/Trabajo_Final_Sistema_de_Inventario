@@ -42,9 +42,9 @@ int main() {
         central = NULL;
         break;
         case 3:
-        central = fopen("central.txt", "r");
+        central = fopen("clientes.txt", "r");
                 if (central == NULL) {
-                    printf("No hay registros aún.\n");
+                    printf("No hay clientes aún.\n");
                     break;
                 }
         printf("\n--- Lista de clientes ---\n");
@@ -56,14 +56,27 @@ int main() {
         
         break;
         case 4:
+        central = fopen("Productos.txt", "r");
+                if (central == NULL) {
+                    printf("No hay productos aún.\n");
+                    break;
+                }
+        printf("\n--- Productos ---\n");
+                 while (fgets(linea, sizeof(linea), central) != NULL) {
+                        printf("%s", linea); // Imprime en pantalla lo que leyó del archivo
+                    }
+                    fclose(central);
+                central = NULL;
+        
         
         break;
         case 5:
         
+        
         break;
         case 6:
         
-        printf("\n ---Saliendo--- \n");
+      
         
         break;
         
@@ -78,7 +91,7 @@ int main() {
 
     
    
-    printf("central.txt creado.\n");
+
     }  
     return 0;
 }
@@ -120,14 +133,14 @@ void guardardatos() {
     // Guardar cliente
     FILE *clientes = fopen("clientes.txt", "a");
     printf("Nombre del cliente: ");
-    scanf("%s", nombre);
+    scanf(" %[^\n]", nombre);
     fprintf(clientes, "ID: %d | Nombre: %s\n", id, nombre);
     fclose(clientes);
 
     // Guardar producto
     FILE *productos = fopen("Productos.txt", "a");
     printf("Producto: ");
-    scanf("%s", Mercancia);
+    scanf(" %[^\n]", Mercancia);
     printf("Precio: ");
     scanf("%f", &precio);
     fprintf(productos, "ID: %d | Producto: %s | Precio: %.2f\n", id, Mercancia, precio);
@@ -151,3 +164,4 @@ void guardardatos() {
 
     printf("Registro #%d guardado correctamente.\n", id);
 }
+
