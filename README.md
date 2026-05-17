@@ -1,24 +1,31 @@
-# 📊 Sistema de Registro de Ventas y Facturación
+#  Sistema de Registro de Ventas y Facturación
 
-Proyecto final para la materia de **Programación Estructurada**. Este sistema permite administrar el ciclo de venta completo, desde el registro de productos hasta la emisión de facturas.
+#  Aviso legal
+Esta sociedad anónima se desliga de cualquie fallo provocado por el uso no espesificado de producto en el siguente apartados
 
-## 📋 Características
-- **Módulo de Clientes:** Alta, baja y consulta de clientes.
-- **Catálogo de Productos:** Gestión de inventario y precios.
-- **Facturación:** Registro de ventas con cálculo automático de totales e IVA.
-- **Reportes:** Filtrado de facturación por rangos de fecha.
-- **Persistencia:** Almacenamiento seguro en archivos `.txt`.
+#  Para el usuario
 
-## 🛠️ Tecnologías Utilizadas
-- **Lenguaje:** C (Estándar C11)
-- **Compilador:** GCC
-- **Entorno:**  VS Code 
+el primer paso al iniciar nuestro producto es crear un registro esto creara los 3 archivos manipulables
 
-## 🚀 Instalación y Ejecución
-1. Clona el repositorio: `git clone https://docs.github.com/es/repositories/creating-and-managing-repositories/quickstart-for-repositories`
-2. Compila el código: `gcc main.c -o sistema_ventas`
-3. Ejecuta: `./sistema_ventas`
+los pasos siguientos no siguen un orden espesifico amenos que lo mencionemos
 
-## 👤 Autores
+para ver los archivos  tiene 3 opciones
+
+1ra selecionar 2 y ver el archivo central
+2da selecionar ver uno de los archivos menores }
+3ra abrir desde las carpetas el archivos
+
+para actualizar tiene 2 opciones
+1ra editar desde nuetro progarma selecionado la opcion de modificar uno de los archivos menores
+2do modificar los archivos directamente
+
+aclaraciones
+si el cambio no se ve reflejado de ala opcion de refrescar
+si aun asi no se ve reflejado entoces no guardo bien la modificacion en el bloc de notas
+IMPORTANTE CUALQUIER CAMBIO EN EL ARCHIVO CENTRAL DIRECTAMENTE NO SE VERA REFLEJADO
+
+
+
+## Autores
 - **Héctor Leonardo Torres** - https://github.com/hectortorres2193-code
-- **[Nombre de tu compañero]** - [Link a su perfil]
+- **David Gutiérrez Maciel** - https://github.com/David-Esperantista
