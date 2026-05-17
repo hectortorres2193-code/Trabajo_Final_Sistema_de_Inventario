@@ -5,15 +5,15 @@ Esta sociedad anónima se desliga de cualquie fallo provocado por el uso no espe
 
 #  Para el usuario
 
-el primer paso al iniciar nuestro producto es crear un registro esto creara los 3 archivos manipulables
+el primer paso al iniciar nuestro producto es crear un registro esto creara los 3 archivos manipulables////
 
 los pasos siguientos no siguen un orden espesifico amenos que lo mencionemos
 
 para ver los archivos  tiene 3 opciones
 
-1ra selecionar 2 y ver el archivo central
-2da selecionar ver uno de los archivos menores }
-3ra abrir desde las carpetas el archivos
+1ra selecionar 2 y ver el archivo central/////
+2da selecionar ver uno de los archivos menores /////
+3ra abrir desde las carpetas el archivos/////
 
 para actualizar tiene 2 opciones
 1ra editar desde nuetro progarma selecionado la opcion de modificar uno de los archivos menores
