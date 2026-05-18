@@ -1,114 +1,152 @@
 #include <stdio.h>
+#include <string.h>
 
-void menu();///primera funcion
-void guardardatos();//segunda funcion
-int generarID();///tercera funcion
+void menu();////usamos las funciones sobretodo para que el codigo este dividido en mudulos
+void guardardatos();///cuando se crea un registro se tiene que llegar totalmente
+int generarID();/// una marcador
+void imprimir(char * menor);///imprimir los archivos menores
+void Refrescar();////crea el archivo central otravez con los datos actualizados
+void actualizarclientes(int idBuscar);
+void actualizarProducto(int idBuscar);
+void actualizarFechas(int idBuscar);////esta familia de funciones  actualizan los archivos menores
+void borrarNombre(int idBuscar);
+void borrarProducto(int idBuscar);
+void borrarFecha(int idBuscar);////esta familia de funciones borra los archivos menores
+void pedirFecha(int *dia, int *mes, int *year);
+void buscar(char *criterio); // busca registros en central.txt por cualquier criterio
 
 int main() {
-    int op = 42;
-    FILE *central; 
+    int op = 42;///porque es un numero bonito
+    FILE *central;
     char linea[200];
     printf("=== Registro de Ventas ===\n");
-    while(op != 7){
+
+    while(op != 14) {///14 opciones incluido la salida
         menu();
-         
-    do {
-        printf("Ingresa una opcion: ");
-    if(scanf("%d", &op) != 1) {
-    printf("Error: Solo se permiten números\n");
-        while (getchar() != '\n');  // limpia el buffer
-        op = 0;                     // reinicia op para que el while continue
-    } else if (op < 1 || op > 7) {
-        printf("Error: Ingresa una opcion del 1 al 7\n");
-    }
 
-} while (op < 1 || op > 7);
-    switch(op){
-        case 1:
-        guardardatos();
-        break;
-        case 2:
-        
-        central = fopen("central.txt", "r");
-        if (central == NULL) {
-        printf("No hay registros aún.\n");
-        break;
-         }
-        printf("\n--- Todos los registros ---\n");
-         while (fgets(linea, sizeof(linea), central) != NULL) {
-                        printf("%s", linea); // Imprime en pantalla lo que leyó del archivo
-                    }
-                    fclose(central);
-        central = NULL;
-        break;
-        case 3:
-        central = fopen("clientes.txt", "r");
-                if (central == NULL) {
-                    printf("No hay clientes aún.\n");
-                    break;
-                }
-        printf("\n--- Lista de clientes ---\n");
-                 while (fgets(linea, sizeof(linea), central) != NULL) {
-                        printf("%s", linea); // Imprime en pantalla lo que leyó del archivo
-                    }
-                    fclose(central);
-                central = NULL;
-        
-        break;
-        case 4:
-        central = fopen("Productos.txt", "r");
-                if (central == NULL) {
-                    printf("No hay productos aún.\n");
-                    break;
-                }
-        printf("\n--- Productos ---\n");
-                 while (fgets(linea, sizeof(linea), central) != NULL) {
-                        printf("%s", linea); // Imprime en pantalla lo que leyó del archivo
-                    }
-                    fclose(central);
-                central = NULL;
-        
-        
-        break;
-        case 5:
-        
-        
-        break;
-        case 6:
-        
-      
-        
-        break;
-        
-        case 7:
-                printf("\n ---Hasta luego--- \n");
+        do {
+            printf("Ingresa una opcion: ");
+            if(scanf("%d", &op) != 1) {
+                printf("Error: Solo se permiten números\n");
+                while (getchar() != '\n');
+                op = 0;
+            } else if (op < 1 || op > 14) {
+                printf("Error: Ingresa una opcion del 1 al 14\n");
+            }
+        } while (op < 1 || op > 14);
+
+        switch(op){
+            case 1:
+                guardardatos();////llena todas los datos completos
                 break;
-
+            case 2:
+                central = fopen("central.txt", "r");
+                if (central == NULL) {
+                    printf("No hay registros aún.\n");
+                    break;
+                }
+                printf("\n--- Todos los registros ---\n");
+                while (fgets(linea, sizeof(linea), central) != NULL) {
+                    printf("%s", linea);
+                }
+                fclose(central);
+                central = NULL;
+                break;
+            case 3:
+                printf("\n--- Lista de clientes ---\n");
+                imprimir("clientes.txt");
+                break;
+            case 4:
+                Refrescar();
+                break;
+            case 5:
+                printf("\n--- Productos ---\n");
+                imprimir("Productos.txt");
+                break;
+            case 6:
+                printf("\n--- Fechas ---\n");
+                imprimir("Fechas.txt");
+                break;
+            case 7: {
+                int clientesactualizados;
+                printf("ID a actualizar: ");
+                scanf("%d", &clientesactualizados);
+                actualizarclientes(clientesactualizados);
+                break;
+            }
+            case 8: {
+                int produtosactualizados;
+                printf("ID a actualizar: ");
+                scanf("%d", &produtosactualizados);
+                actualizarProducto(produtosactualizados);
+                break;
+            }
+            case 9: {
+                int Fechasactualizados;
+                printf("ID a actualizar: ");
+                scanf("%d", &Fechasactualizados);
+                actualizarFechas(Fechasactualizados);
+                break;
+            }
+            case 10: {
+                int id;
+                printf("ID: ");
+                scanf("%d", &id);
+                borrarNombre(id);
+                break;
+            }
+            case 11: {
+                int id;
+                printf("ID: ");
+                scanf("%d", &id);
+                borrarProducto(id);
+                break;
+            }
+            case 12: {
+                int id;
+                printf("ID: ");
+                scanf("%d", &id);
+                borrarFecha(id);
+                break;
+            }
+            case 13: {
+                char criterio[50];
+                printf("Buscar (nombre, apellido o ID): ");
+                scanf(" %[^\n]", criterio);
+                buscar(criterio);
+                break;
+            }
+            case 14:
+                printf("\n ---Saliendo--- \n");
+                break;
             default:
                 printf("Opcion no valida.\n");
+                ////muchas funciones que no explicare porque las explicare funcion por funcion
         }
-    
-
-    
-   
-
-    }  
+    }
     return 0;
 }
 
-void menu() {//funcion 1
+void menu() {
     printf("1.- Registro\n"
-           "2.- Leer registro \n"
+           "2.- Leer registro\n"
            "3.- Lista de clientes.\n"
-           "4.- Lista de productos.\n"
-           "5.- Precios.\n"
-           "6.- Ver Facturacion por fechas.\n"
-           "7.- Salir.\n");
+           "4.- Refrescar\n"
+           "5.- Lista de productos.\n"////para que este ordenado
+           "6.- Ver fechas de actividad.\n"
+           "7.- Actualizar cliente\n"
+           "8.- Actualizar producto\n"
+           "9.- Actualizar fecha\n"
+           "10.- Borrar nombre\n"
+           "11.- Borrar producto\n"
+           "12.- Borrar fecha\n"
+           "13.- Buscar registro\n"
+           "14.- Salir\n");
 }
 
 int generarID() {
     FILE *clientes = fopen("clientes.txt", "r");
-    if (clientes == NULL) return 1;
+    if (clientes == NULL) return 1;//////ordenar archivos
 
     int id = 0;
     char linea[100];
@@ -120,25 +158,60 @@ int generarID() {
     return id + 1;
 }
 
+void pedirFecha(int *dia, int *mes, int *year) {
+    do {
+        printf("Mes (1-12): ");/////verificar que sea fecha es decir que los dias de los meses esten bien y considera los bisiestos
+        scanf("%d", mes);
+        if (*mes < 1 || *mes > 12)
+            printf("Error: mes invalido.\n");
+    } while (*mes < 1 || *mes > 12);
+
+    do {
+        printf("Year (1582 en adelante): ");
+        scanf("%d", year);
+        if (*year < 1582)
+            printf("Error: year invalido.\n");
+    } while (*year < 1582);
+
+    int bisiesto = (*year % 4 == 0 && *year % 100 != 0) || (*year % 400 == 0);
+
+    int maxDias;
+    if (*mes == 2)
+        maxDias = bisiesto ? 29 : 28;
+    else if (*mes == 4 || *mes == 6 || *mes == 9 || *mes == 11)
+        maxDias = 30;
+    else
+        maxDias = 31;
+
+    do {
+        printf("Dia (1-%d): ", maxDias);
+        scanf("%d", dia);
+        if (*dia < 1 || *dia > maxDias)
+            printf("Error: dia invalido para el mes %d.\n", *mes);
+    } while (*dia < 1 || *dia > maxDias);
+}
+
 void guardardatos() {
-    char nombre[50];
-    char Mercancia[50];///variables para crear los datos de archivos
+    char nombre[50];////se llena el formato por completo
+    char apellido[50];
+    char Mercancia[50];
     float precio;
     int Day, mes, year;
 
     int id = generarID();
-
     printf("\n--- Nuevo Registro (ID: %d) ---\n", id);
 
-    // Guardar cliente
     FILE *clientes = fopen("clientes.txt", "a");
+    if (clientes == NULL) { printf("Error clientes.txt\n"); return; }
     printf("Nombre del cliente: ");
     scanf(" %[^\n]", nombre);
-    fprintf(clientes, "ID: %d | Nombre: %s\n", id, nombre);
+    printf("Apellido del cliente: ");
+    scanf(" %[^\n]", apellido);
+    fprintf(clientes, "ID: %d | Nombre: %s %s\n", id, nombre, apellido);
     fclose(clientes);
 
-    // Guardar producto
     FILE *productos = fopen("Productos.txt", "a");
+    if (productos == NULL) { printf("Error Productos.txt\n"); return; }
     printf("Producto: ");
     scanf(" %[^\n]", Mercancia);
     printf("Precio: ");
@@ -146,22 +219,234 @@ void guardardatos() {
     fprintf(productos, "ID: %d | Producto: %s | Precio: %.2f\n", id, Mercancia, precio);
     fclose(productos);
 
-    // Guardar fecha
     FILE *fechas = fopen("Fechas.txt", "a");
-    printf("Dia: ");
-    scanf("%d", &Day);
-    printf("Mes: ");
-    scanf("%d", &mes);//guarda la feha por 3 partes
-    printf("Año: ");
-    scanf("%d", &year);
+    if (fechas == NULL) { printf("Error Fechas.txt\n"); return; }
+    pedirFecha(&Day, &mes, &year);
     fprintf(fechas, "ID: %d | Fecha: %02d/%02d/%d\n", id, Day, mes, year);
     fclose(fechas);
 
-    // crea la linea central
     FILE *central = fopen("central.txt", "a");
-    fprintf(central, "ID: %d | Nombre: %s | Producto: %s | Precio: %.2f | Fecha: %02d/%02d/%d\n",id, nombre, Mercancia, precio, Day, mes, year);
+    if (central == NULL) { printf("Error central.txt\n"); return; }
+    fprintf(central, "ID: %d | Nombre: %s %s | Producto: %s | Precio: %.2f | Fecha: %02d/%02d/%d\n",
+            id, nombre, apellido, Mercancia, precio, Day, mes, year);
     fclose(central);
 
     printf("Registro #%d guardado correctamente.\n", id);
 }
 
+void imprimir(char *menor) {
+    FILE *minor = fopen(menor, "r");//////////////mostar los archivos
+    if (minor == NULL) {
+        printf("No se pudo abrir el archivo.\n");
+        return;
+    }
+    char linea[100];
+    while (fgets(linea, sizeof(linea), minor) != NULL) {
+        printf("%s", linea);
+    }
+    fclose(minor);
+}
+
+void Refrescar() {//////////crea el archivo centra con los nuevos datos
+    FILE *clientes  = fopen("clientes.txt", "r");
+    FILE *productos = fopen("Productos.txt", "r");
+    FILE *fechas    = fopen("Fechas.txt", "r");
+    FILE *central   = fopen("centralTemp.txt", "w");
+
+    if (!clientes || !productos || !fechas || !central) {
+        printf("Error al abrir archivos\n");
+        return;
+    }
+
+    char linCli[200], linPro[200], linFec[200];
+    int id;
+    char nombre[100], Mercancia[50], fecha[20];
+    float precio;
+
+    while (
+        fgets(linCli, sizeof(linCli), clientes) &&
+        fgets(linPro, sizeof(linPro), productos) &&
+        fgets(linFec, sizeof(linFec), fechas)
+    ) {
+        sscanf(linCli, "ID: %d | Nombre: %99[^\n]", &id, nombre);
+        sscanf(linPro, "ID: %*d | Producto: %49[^|] | Precio: %f", Mercancia, &precio);
+        sscanf(linFec, "ID: %*d | Fecha: %19s", fecha);
+
+        int len = strlen(Mercancia);
+        if (Mercancia[len-1] == ' ') Mercancia[len-1] = '\0';
+
+        fprintf(central, "ID: %d | Nombre: %s | Producto: %s | Precio: %.2f | Fecha: %s\n",
+                id, nombre, Mercancia, precio, fecha);
+    }
+
+    fclose(clientes);
+    fclose(productos);
+    fclose(fechas);
+    fclose(central);
+
+    remove("central.txt");
+    rename("centralTemp.txt", "central.txt");
+
+    printf("central.txt reconstruido correctamente.\n");
+}
+
+void actualizarclientes(int idBuscar) {///////////actualiza el archivo menor
+    char nombre[50];
+    char apellido[50];
+    printf("\n--- Actualizar Registro (ID: %d) ---\n", idBuscar);
+    printf("Nuevo nombre: ");
+    scanf(" %[^\n]", nombre);
+    printf("Nuevo apellido: ");
+    scanf(" %[^\n]", apellido);
+
+    FILE *orig = fopen("clientes.txt", "r");
+    FILE *temp = fopen("cliTemp.txt", "w");
+    if (!orig) { printf("Error: no abre clientes.txt\n"); return; }
+    if (!temp) { printf("Error: no abre cliTemp.txt\n"); return; }
+
+    char linea[100]; int id;
+    while (fgets(linea, sizeof(linea), orig)) {
+        sscanf(linea, "ID: %d", &id);
+        if (id == idBuscar)
+            fprintf(temp, "ID: %d | Nombre: %s %s\n", idBuscar, nombre, apellido);
+        else
+            fprintf(temp, "%s", linea);
+    }
+    fclose(orig); fclose(temp);
+    remove("clientes.txt"); rename("cliTemp.txt", "clientes.txt");
+    Refrescar();
+    printf("Cliente #%d actualizado.\n", idBuscar);
+}
+
+void actualizarProducto(int idBuscar) {//////////actualiza el archivo menor
+    char mercancia[50];
+    float precio;
+    printf("\n--- Actualizar Producto (ID: %d) ---\n", idBuscar);
+    printf("Nuevo producto: ");
+    scanf(" %[^\n]", mercancia);
+    printf("Nuevo precio: ");
+    scanf("%f", &precio);
+
+    FILE *orig = fopen("Productos.txt", "r");
+    FILE *temp = fopen("proTemp.txt", "w");
+    if (!orig) { printf("Error: no abre Productos.txt\n"); return; }
+    if (!temp) { printf("Error: no abre proTemp.txt\n"); return; }
+
+    char linea[100]; int id;
+    while (fgets(linea, sizeof(linea), orig)) {
+        sscanf(linea, "ID: %d", &id);
+        if (id == idBuscar)
+            fprintf(temp, "ID: %d | Producto: %s | Precio: %.2f\n", idBuscar, mercancia, precio);
+        else
+            fprintf(temp, "%s", linea);
+    }
+    fclose(orig); fclose(temp);
+    remove("Productos.txt"); rename("proTemp.txt", "Productos.txt");
+    Refrescar();
+    printf("Producto #%d actualizado.\n", idBuscar);
+}
+
+void actualizarFechas(int idBuscar) {//////////actualiza el archivo menor
+    int dia, mes, year;
+    printf("\n--- Actualizar Fecha (ID: %d) ---\n", idBuscar);
+    pedirFecha(&dia, &mes, &year);
+
+    FILE *orig = fopen("Fechas.txt", "r");
+    FILE *temp = fopen("fecTemp.txt", "w");
+    if (!orig) { printf("Error: no abre Fechas.txt\n"); return; }
+    if (!temp) { printf("Error: no abre fecTemp.txt\n"); return; }
+
+    char linea[100]; int id;
+    while (fgets(linea, sizeof(linea), orig)) {
+        sscanf(linea, "ID: %d", &id);
+        if (id == idBuscar)
+            fprintf(temp, "ID: %d | Fecha: %02d/%02d/%d\n", idBuscar, dia, mes, year);
+        else
+            fprintf(temp, "%s", linea);
+    }
+    fclose(orig); fclose(temp);
+    remove("Fechas.txt"); rename("fecTemp.txt", "Fechas.txt");
+    Refrescar();
+    printf("Fecha #%d actualizada.\n", idBuscar);
+}
+
+void borrarNombre(int idBuscar) {//////////borrar una linea de un archivo menot y replaza por nilus
+    FILE *orig = fopen("clientes.txt", "r");
+    FILE *temp = fopen("cliTemp.txt", "w");
+    if (!orig || !temp) { printf("Error al abrir clientes.txt\n"); return; }
+
+    char linea[100]; int id;
+    while (fgets(linea, sizeof(linea), orig)) {
+        sscanf(linea, "ID: %d", &id);
+        if (id == idBuscar)
+            fprintf(temp, "ID: %d | Nombre: nihil\n", idBuscar);
+        else
+            fprintf(temp, "%s", linea);
+    }
+    fclose(orig); fclose(temp);
+    remove("clientes.txt"); rename("cliTemp.txt", "clientes.txt");
+    Refrescar();
+    printf("Nombre #%d reemplazado con nihil.\n", idBuscar);
+}
+
+void borrarProducto(int idBuscar) {////////borrar una linea de un archivo menor y t¿replaza por nilus y pone el precio en ceros
+    FILE *orig = fopen("Productos.txt", "r");
+    FILE *temp = fopen("proTemp.txt", "w");
+    if (!orig || !temp) { printf("Error al abrir Productos.txt\n"); return; }
+
+    char linea[100]; int id;
+    while (fgets(linea, sizeof(linea), orig)) {
+        sscanf(linea, "ID: %d", &id);
+        if (id == idBuscar)
+            fprintf(temp, "ID: %d | Producto: nihil | Precio: 0.00\n", idBuscar);
+        else
+            fprintf(temp, "%s", linea);
+    }
+    fclose(orig); fclose(temp);
+    remove("Productos.txt"); rename("proTemp.txt", "Productos.txt");
+    Refrescar();
+    printf("Producto #%d reemplazado con nihil.\n", idBuscar);
+}
+
+void borrarFecha(int idBuscar) {////////borrar una linea de un archivo menor y pone la frecha de establecimiento de nuesto calendario
+    FILE *orig = fopen("Fechas.txt", "r");
+    FILE *temp = fopen("fecTemp.txt", "w");
+    if (!orig || !temp) { printf("Error al abrir Fechas.txt\n"); return; }
+
+    char linea[100]; int id;
+    while (fgets(linea, sizeof(linea), orig)) {
+        sscanf(linea, "ID: %d", &id);
+        if (id == idBuscar)
+            fprintf(temp, "ID: %d | Fecha: 15/10/1582\n", idBuscar);
+        else
+            fprintf(temp, "%s", linea);
+    }
+    fclose(orig); fclose(temp);
+    remove("Fechas.txt"); rename("fecTemp.txt", "Fechas.txt");
+    Refrescar();
+    printf("Fecha #%d reseteada al 15/10/1582.\n", idBuscar);
+}
+
+void buscar(char *criterio) { // busca en central.txt cualquier coincidencia
+    FILE *central = fopen("central.txt", "r");
+    if (central == NULL) {
+        printf("No hay registros aún.\n");
+        return;
+    }
+
+    char linea[200];
+    int encontrado = 0;
+
+    printf("\n--- Resultados de búsqueda: %s ---\n", criterio);
+    while (fgets(linea, sizeof(linea), central) != NULL) {
+        if (strstr(linea, criterio) != NULL) { // strstr busca criterio dentro de linea
+            printf("%s\n", linea);
+            encontrado = 1;
+        }
+    }
+
+    if (!encontrado)
+        printf("No se encontraron registros con: %s\n", criterio);
+
+    fclose(central);
+}
