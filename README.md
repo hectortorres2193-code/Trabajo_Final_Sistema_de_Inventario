@@ -36,8 +36,11 @@ NO SE CONSERVARA.
 ## Borrar
 cuando se seleciona borra una linea de un archivo menor esta se remplaza para no comprometer la linea central en los archivos de texto se pone la palabra latina de nihil que simifica nada en los precios se convierte a 0 y en las fecha retrocede ala fecha mas antigua que permite el programa 
 ## errores
-si pone un dato no procesable como 32 de febrero es id se vacia y pide que sea rellenado otra vex el codigo espesifica cual fue el tipo de erros
-
+si pone un dato no procesable como 32 de febrero el id se vacia y pide que sea rellenado otra vex el codigo espesifica cual fue el tipo de erros
+## Modificaciones
+si se desea modificar el codigo se recomiendo craer nuvas funciones y no modificar las existentes,no prohibimos tajantemente las modificaciones directas aunque si las desaconsejamos
+## estrutura del codigo
+todas las funciones del codigo estan en la parte superios despues en el main hay un ciclo que se repetira indefinidamente hasta que se selecione la opcion de salida le sigue una funcion para asegurar que la fecha si exista en nustro calendario se crean los 3 archivos y se pide que los llenen ala par quese crea un 4 donde de junta la informacion unidad por el id comun le sigue una función que permite ler los archivos individuales,otra que destruye y recontruye al archivo central esta funcion se llama refrescar por ultimo hay 2 familias de funciones la de actualiza y la de borra que depende de a funcion de refrescar para su corecto funcionamiento
 ## Autores
 - **Héctor Leonardo Torres** - https://github.com/hectortorres2193-code
 - **David Gutiérrez Maciel** - https://github.com/David-Esperantista
