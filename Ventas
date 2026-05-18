@@ -70,42 +70,42 @@ int main() {
             case 7: {
                 int clientesactualizados;
                 printf("ID a actualizar: ");
-                scanf("%d", &clientesactualizados);
+                while(scanf("%d", &clientesactualizados) != 1) { printf("Error: Solo números. ID: "); while(getchar() != '\n'); }//limpieza de memoria junto con verifacion de solo numeros
                 actualizarclientes(clientesactualizados);
                 break;
             }
             case 8: {
                 int produtosactualizados;
                 printf("ID a actualizar: ");
-                scanf("%d", &produtosactualizados);
+                while(scanf("%d", &produtosactualizados) != 1) { printf("Error: Solo números. ID: "); while(getchar() != '\n'); }
                 actualizarProducto(produtosactualizados);
                 break;
             }
             case 9: {
                 int Fechasactualizados;
                 printf("ID a actualizar: ");
-                scanf("%d", &Fechasactualizados);
+                while(scanf("%d", &Fechasactualizados) != 1) { printf("Error: Solo números. ID: "); while(getchar() != '\n'); }
                 actualizarFechas(Fechasactualizados);
                 break;
             }
             case 10: {
                 int id;
                 printf("ID: ");
-                scanf("%d", &id);
+                while(scanf("%d", &id) != 1) { printf("Error: Solo números. ID: "); while(getchar() != '\n'); }
                 borrarNombre(id);
                 break;
             }
             case 11: {
                 int id;
                 printf("ID: ");
-                scanf("%d", &id);
+                while(scanf("%d", &id) != 1) { printf("Error: Solo números. ID: "); while(getchar() != '\n'); }
                 borrarProducto(id);
                 break;
             }
             case 12: {
                 int id;
                 printf("ID: ");
-                scanf("%d", &id);
+                while(scanf("%d", &id) != 1) { printf("Error: Solo números. ID: "); while(getchar() != '\n'); }
                 borrarFecha(id);
                 break;
             }
@@ -161,14 +161,20 @@ int generarID() {
 void pedirFecha(int *dia, int *mes, int *year) {
     do {
         printf("Mes (1-12): ");/////verificar que sea fecha es decir que los dias de los meses esten bien y considera los bisiestos
-        scanf("%d", mes);
+        while (scanf("%d", mes)!= 1) {
+            printf("Error: Solo números. Mes (1-12): ");
+            while (getchar() != '\n');
+        }
         if (*mes < 1 || *mes > 12)
             printf("Error: mes invalido.\n");
     } while (*mes < 1 || *mes > 12);
 
     do {
         printf("Year (1582 en adelante): ");
-        scanf("%d", year);
+        while (scanf("%d", year) != 1) {
+            printf("Error: Solo números. Year: ");
+            while (getchar() != '\n');
+        }
         if (*year < 1582)
             printf("Error: year invalido.\n");
     } while (*year < 1582);
@@ -185,7 +191,10 @@ void pedirFecha(int *dia, int *mes, int *year) {
 
     do {
         printf("Dia (1-%d): ", maxDias);
-        scanf("%d", dia);
+        while (scanf("%d", dia) != 1) {
+            printf("Error: Solo números. Dia: ");
+            while (getchar() != '\n');
+        }
         if (*dia < 1 || *dia > maxDias)
             printf("Error: dia invalido para el mes %d.\n", *mes);
     } while (*dia < 1 || *dia > maxDias);
@@ -215,7 +224,10 @@ void guardardatos() {
     printf("Producto: ");
     scanf(" %[^\n]", Mercancia);
     printf("Precio: ");
-    scanf("%f", &precio);
+    while (scanf("%f", &precio) != 1) {
+        printf("Error: Solo números. Precio: ");
+        while (getchar() != '\n'); 
+    }
     fprintf(productos, "ID: %d | Producto: %s | Precio: %.2f\n", id, Mercancia, precio);
     fclose(productos);
 
