@@ -29,11 +29,14 @@ Para actualizar tienes 2 opciones:
 - Si aún así no se ve reflejado, significa que no se guardó correctamente 
   la modificación en el Bloc de notas
 
-## ⚠️ IMPORTANTE
+## IMPORTANTE
 Cualquier cambio realizado directamente en el archivo **central.txt** 
-NO se verá reflejado en los archivos menores.
+NO SE CONSERVARA.
 
-
+## Borrar
+cuando se seleciona borra una linea de un archivo menor esta se remplaza para no comprometer la linea central en los archivos de texto se pone la palabra latina de nihil que simifica nada en los precios se convierte a 0 y en las fecha retrocede ala fecha mas antigua que permite el programa 
+## errores
+si pone un dato no procesable como 32 de febrero es id se vacia y pide que sea rellenado otra vex el codigo espesifica cual fue el tipo de erros
 
 ## Autores
 - **Héctor Leonardo Torres** - https://github.com/hectortorres2193-code
