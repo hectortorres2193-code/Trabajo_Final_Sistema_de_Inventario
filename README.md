@@ -1,28 +1,37 @@
-#  Sistema de Registro de Ventas y Facturación
+# Sistema de Registro de Ventas y Facturación
 
-#  Aviso legal
-Esta sociedad anónima se desliga de cualquie fallo provocado por el uso no espesificado de producto en el siguente apartados
+## Aviso Legal
+Esta sociedad anónima se desliga de cualquier fallo provocado por el uso no especificado 
+del producto en los siguientes apartados.
 
-#  Para el usuario
+## Para el Usuario
 
-el primer paso al iniciar nuestro producto es crear un registro esto creara los 3 archivos manipulables////
+### Primer paso
+Al iniciar el producto, crear un registro. Esto generará automáticamente los 3 archivos 
+manipulables: `clientes.txt`, `Productos.txt` y `Fechas.txt`.
 
-los pasos siguientos no siguen un orden espesifico amenos que lo mencionemos
+### Ver archivos
+Los pasos siguientes no siguen un orden específico a menos que se mencione.
+Para ver los archivos tienes 3 opciones:
 
-para ver los archivos  tiene 3 opciones
+1. Seleccionar opción **2** para ver el archivo central
+2. Seleccionar una opción para ver uno de los archivos menores
+3. Abrir directamente desde las carpetas del sistema
 
-1ra selecionar 2 y ver el archivo central/////
-2da selecionar ver uno de los archivos menores /////
-3ra abrir desde las carpetas el archivos/////
+### Actualizar registros
+Para actualizar tienes 2 opciones:
 
-para actualizar tiene 2 opciones
-1ra editar desde nuetro progarma selecionado la opcion de modificar uno de los archivos menores
-2do modificar los archivos directamente
+1. Editar desde el programa seleccionando la opción de modificar uno de los archivos menores
+2. Modificar los archivos directamente desde el Bloc de notas
 
-aclaraciones
-si el cambio no se ve reflejado de ala opcion de refrescar
-si aun asi no se ve reflejado entoces no guardo bien la modificacion en el bloc de notas
-IMPORTANTE CUALQUIER CAMBIO EN EL ARCHIVO CENTRAL DIRECTAMENTE NO SE VERA REFLEJADO
+### Aclaraciones
+- Si el cambio no se ve reflejado, usar la opción de **Refrescar**
+- Si aún así no se ve reflejado, significa que no se guardó correctamente 
+  la modificación en el Bloc de notas
+
+## ⚠️ IMPORTANTE
+Cualquier cambio realizado directamente en el archivo **central.txt** 
+NO se verá reflejado en los archivos menores.
 
 
 
